@@ -4,8 +4,8 @@ import { printServerUrl } from './cli/daemon.js';
 import { getConfig } from './config.js';
 import { resolveWorkspaceDatabase } from './db.js';
 import { debug, enableAllDebug } from './logging.js';
+import { createDbWatcher } from './poll-watcher.js';
 import { registerWorkspace, watchRegistry } from './registry-watcher.js';
-import { watchDb } from './watcher.js';
 import { attachWsServer } from './ws.js';
 
 if (process.argv.includes('--debug') || process.argv.includes('-d')) {
@@ -38,7 +38,7 @@ if (workspace_database.source !== 'home-default' && workspace_database.exists) {
 }
 
 // Watch the active beads DB and schedule subscription refresh for active lists
-const db_watcher = watchDb(config.root_dir, () => {
+const db_watcher = createDbWatcher(config.root_dir, () => {
   // Schedule subscription list refresh run for active subscriptions
   log('db change detected → schedule refresh');
   scheduleListRefresh();
