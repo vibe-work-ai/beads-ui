@@ -9,6 +9,7 @@ export default defineConfig({
           include: ['**/*.test.js'],
           exclude: ['app/**/*.test.js', 'node_modules/**'],
           environment: 'node',
+          execArgv: ['--no-experimental-webstorage'],
           restoreMocks: true
         }
       },
@@ -18,6 +19,7 @@ export default defineConfig({
           setupFiles: ['test/setup-vitest.js'],
           include: ['app/**/*.test.js'],
           environment: 'jsdom',
+          execArgv: ['--no-experimental-webstorage'],
           restoreMocks: true
         }
       }
